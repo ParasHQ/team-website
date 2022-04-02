@@ -26,9 +26,7 @@ export default function Home() {
 								that by creating new exclusive IPs, we could tailor and design
 								new experiences of these mediums: comics, games, and toys.
 								Giving utility and use cases over digital assets could create
-								more value to collectors and creators. In the end, we would like
-								to build our own metaverse where Paras becomes the gateway to
-								access multiple sources of entertainment.
+								more value to collectors and creators.
 							</p>
 						</div>
 					</div>

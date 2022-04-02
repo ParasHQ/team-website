@@ -2,6 +2,7 @@ import Open from '../components/icons/Open'
 import Innovative from '../components/icons/Innovate'
 import Reward from '../components/icons/Reward'
 import Nav from '../components/Nav'
+import axios from 'axios'
 
 const CULTURE = [
 	{
@@ -18,19 +19,6 @@ const CULTURE = [
 	},
 ]
 
-const JOBS = [
-	{
-		title: `Backend Engineer`,
-		location: `Jakarta (Preferred) or REMOTE`,
-		link: `https://glints.com/id/en/opportunities/jobs/b238be10-4de8-4101-93bc-6df2b2c079c9`,
-	},
-	{
-		title: `Frontend Engineer`,
-		location: `Jakarta (Preferred) or REMOTE`,
-		link: `https://glints.com/id/en/opportunities/jobs/84f1f7a5-1e22-4f74-8898-3b4d59d89a6d`,
-	},
-]
-
 const CultureIcon = ({ title }) => {
 	if (title == 'Open') {
 		return <Open />
@@ -43,13 +31,13 @@ const CultureIcon = ({ title }) => {
 	}
 }
 
-export default function Home() {
+export default function Jobs({ jobList }) {
 	return (
 		<>
 			<Nav />
 			<div className="max-w-5xl mx-auto px-4 md:px-8 text-white ">
 				<div>
-					<p className="text-6xl font-bold mt-8">Join the Team</p>
+					<p className="text-6xl font-bold mt-16">Join the Team</p>
 					<p className="mt-4 text-gray-300">
 						We are always looking for talented new members that push us to be
 						bolder, dream bigger and perform better.
@@ -68,13 +56,13 @@ export default function Home() {
 						})}
 					</div>
 				</div>
-				<div className="mt-8">
+				<div className="mt-16">
 					<p className="text-3xl font-bold">Jobs</p>
 					<div className="flex flex-wrap -mx-4">
-						{JOBS.map((x, idx) => {
+						{jobList.map((x, idx) => {
 							return (
 								<div key={idx} className="w-full md:w-1/3 p-4 hover:opacity-75">
-									<a href={x.link} target="_blank">
+									<a href={x.url} target="_blank">
 										<div>
 											<span className="text-lg font-semibold">{x.title}</span>
 											<span className="inline-block pl-2">
@@ -104,4 +92,17 @@ export default function Home() {
 			</div>
 		</>
 	)
+}
+
+export async function getServerSideProps() {
+	const resp = await axios.get(
+		`https://api.airtable.com/v0/appa27x5hhdRZLt0j/Table%201?api_key=${process.env.AIRTABLE_API_KEY}`
+	)
+	return {
+		props: {
+			jobList: resp.data.records
+				.map((r) => r.fields)
+				.sort((a, b) => a.title.localeCompare(b.title)),
+		},
+	}
 }

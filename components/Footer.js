@@ -22,7 +22,7 @@ const Footer = () => {
 			</div>
 			<div>
 				<div className="p-2">
-					<p>(c) 2021 Paras</p>
+					<p>(c) {new Date().getFullYear()} Paras</p>
 				</div>
 			</div>
 		</div>
