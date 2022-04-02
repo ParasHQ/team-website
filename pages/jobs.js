@@ -96,7 +96,7 @@ export default function Jobs({ jobList }) {
 
 export async function getServerSideProps() {
 	const resp = await axios.get(
-		`https://api.airtable.com/v0/appa27x5hhdRZLt0j/Table%201?api_key=${process.env.AIRTABLE_API_KEY}`
+		`https://api.airtable.com/v0/appa27x5hhdRZLt0j/Job%20List?api_key=${process.env.AIRTABLE_API_KEY}`
 	)
 	return {
 		props: {
